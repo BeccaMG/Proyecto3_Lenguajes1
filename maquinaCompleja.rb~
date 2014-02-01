@@ -17,15 +17,15 @@ module MaquinaCompleja
         
         #-- Unicamente si se tiene la cantidad requerida de insumo basico
         #-- en el contenedor, se procede a analizar el resto de la mezcla
-        if @insumoRequerido >= insumoBasico.cantidad     
+        if @insumoBasico.cantidad >= insumoRequerido  
         
             #-- Caso en el que la maquina posee un contenedor de enlace
             #-- con una maquina anterior.
             if @productoAnterior != nil
-            
                 #-- Se calcula la cantidad de producto anterior requerido
                 #-- por la maquina Compleja
-                productoAnteriorRequerido = @porcentajePA * @cantidadMax
+                productoAnteriorRequerido = @porcentajePA * @cantidadMa
+                cantidadAObtener = productoAnteriorRequerido - @productoAnteriorRestante 
                        
                     #-- Caso en el que el producto encontrado en el contenedor
                     #-- es suficiente para comenzar el procesamiento de 
