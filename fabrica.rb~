@@ -31,7 +31,7 @@ class Fabrica
         llenaTapa      = Maquina.new("Llenadora y Tapadora", 0.0, 0, 50, 100, 2, nil, nil)
         tanqueFiltrada = Maquina.new("Tanque para Cerveza Filtrada", 0.0, 0, 100, 100, 0, llenaTapa, nil)
         filtroCerveza  = Maquina.new("Filtro de Cerveza", 0.0, 0, 100, 100, 1, tanqueFiltrada, nil)
-        tcc            = MaquinaCompleja.new
+        #tcc            = MaquinaCompleja.new
         enfriador      = Maquina.new("Enfriador", 0.0, 0, 60, 100, 2, tcc, nil)
         tanque         = Maquina.new("Tanque Pre-Clarificador", 0.01, 0, 35, 100, 1, enfriador, nil)
         #pailaCoccion   = MaquinaCompleja.new

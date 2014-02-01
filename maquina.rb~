@@ -15,7 +15,7 @@ class Insumo
 
     # ---------- Funcion para imprimir un Insumo ------------ #
     def imprimir
-        puts "#{@nombre} #{@cantidad}"
+        puts "#{@nombre}: #{@cantidad}"
     end
 end
 
