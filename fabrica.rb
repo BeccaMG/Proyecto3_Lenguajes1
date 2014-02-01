@@ -125,14 +125,24 @@ class Fabrica
 
 end
 
-
+def parametrosValidos(numCiclos,cebada,arrozMaiz,levadura,lupulo)
+    if (numCiclos<0 || cebada<0 || arrozMaiz<0 || levadura<0|| lupulo<0)
+        puts "Todos los parametros de entrada deben corresponder a enteros positivos"
+        abort
+    end
+end    
 # ---- Se obtienen los argumentos de la linea de comandos ---- #
+if ARGV.length != 5
+    puts "Argumentos Invalidos.\nModo de uso <NumeroCiclos> <Cebada> <arrozMaiz> <levadura> <lupulo> "
+    abort
+end
 numCiclos = ARGV[0].to_i
 cebada    = ARGV[1].to_i
 arrozMaiz = ARGV[2].to_i
 levadura  = ARGV[3].to_i
 lupulo    = ARGV[4].to_i
 
+parametrosValidos(numCiclos,cebada,arrozMaiz,levadura,lupulo)
 # ---- Se crea la Fabrica y se pone en marcha ---- #
 glaciar = Fabrica.new(numCiclos, cebada, arrozMaiz, levadura, lupulo)
 glaciar.activar

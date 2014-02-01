@@ -115,6 +115,10 @@ class Maquina
     
     #------ Metodo que procesa un ciclo en estado "espera". -----
     def cicloEspera
+        
+        puts "[Maquina: #{@nombre} Lleva en su tanque anterior" 
+        @productoProcesado.imprimir
+        puts "\n"
         if @productoProcesado.cantidad == 0
             # Solamente debe transferir si la maquina siguiente esta lista para
             # recibir, esto es, si la maquina siguiente esta inactiva y yo
@@ -139,7 +143,7 @@ class Maquina
     #------ Representacion en String de la clase Maquina. -----
     #-- Imprime en pantalla dicha representacion
     def imprimir
-        maquina = "\nMaquina " + @nombre + "\n" + "Estado: " + @estado +"\n"
+        maquina = "\nMaquina " + @nombre + "\n" + "Estado: " + @estado +"\n\n"
         
         puts maquina
         #-- Solo se imprimen los insumos asociados a la maquina en caso de 
