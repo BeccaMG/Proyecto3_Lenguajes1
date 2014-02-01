@@ -14,7 +14,7 @@ module MaquinaFinal
     end   
     
     def imprimir
-         maquina = "\nMaquina " + @nombre + "\n" + "Estado: " + @estado +"\n"
+         maquina = "Maquina " + @nombre + "\n" + "Estado: " + @estado
         
         puts maquina
         #-- Solo se imprimen los insumos asociados a la maquina en caso de 
