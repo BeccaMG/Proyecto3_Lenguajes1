@@ -5,11 +5,11 @@ require_relative 'insumo'
 #----------------- IMPLEMENTACION DE LA CLASE INSUMO ---------------------------
 #*******************************************************************************
 
-class Producto < Insumo
-
-    # ---- Constructor para la Subclase Producto ---- #
-    def initialize(cantidad)
-        @nombre = 'Producto Anterior'
+class InsumoBasico < Insumo
+    
+    # ---- Constructor para la Subclase InsumoBasico ---- #
+    def initialize(nombre,cantidad)
+        @nombre = nombre
         @cantidad = cantidad
-    end
+    end 
 end

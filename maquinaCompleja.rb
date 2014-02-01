@@ -66,5 +66,3 @@ module MaquinaCompleja
     end
 #--Fin de la clase Maquina
 end
-
-
