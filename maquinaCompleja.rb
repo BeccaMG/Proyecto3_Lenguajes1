@@ -64,6 +64,23 @@ module MaquinaCompleja
                 @estado = "Llena"
             end
         end
+   end
+   
+    #------ Representacion en String de la clase Maquina Compleja. -----
+    #-- Imprime en pantalla dicha representacion
+    def imprimir
+        maquina = "Maquina " + @nombre + "\n" + "Estado: " + @estado +"\n"
+        
+        puts maquina
+        #-- Solo se imprimen los insumos asociados a la maquina en caso de 
+        #-- que esta se encuentre en estado inactiva o llena
+        case @estado
+            when "Llena","Inactiva"
+                unless @productoAnterior.nil?
+                    puts @productoAnterior.imprimir
+                end
+                puts @insumoBasico.imprimir
+        end
     end
 #--Fin de la clase Maquina
 end
