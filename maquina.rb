@@ -1,25 +1,38 @@
 #!/usr/bin/env ruby
 
-
+#*****************************************************************************
+#--------------------- IMPLEMENTACION DE LA CLASE INSUMO ---------------------
+#*****************************************************************************
 class Insumo
+    
+    # ---------- Variables de Instancia de la Clase Insumo ---------------- #
     attr_accessor :nombre, :cantidad
     
+    # ---------- Constructor de la Clase Insumo ------------- #
+    #   El constructor estara implementado en las subclases   #
     def initialize
     end
 
+    # ---------- Funcion para imprimir un Insumo ------------ #
     def imprimir
         puts "<#{@nombre}> = #{@cantidad}"
     end
 end
 
+# ---------------- SUBCLASE INSUMOBASICO (PADRE INSUMO) ------------------ #
 class InsumoBasico < Insumo
+    
+    # ---- Constructor para la Subclase InsumoBasico ---- #
     def initialize(nombre,cantidad)
         @nombre = nombre
         @cantidad = cantidad
     end 
 end
 
+# ------------------- SUBCLASE PRODUCTO (PADRE INSUMO) ------------------- #
 class Producto < Insumo
+
+    # ---- Constructor para la Subclase Producto ---- #
     def initialize(cantidad)
         @nombre = 'Producto Actual'
         @cantidad = cantidad
@@ -108,8 +121,20 @@ class Maquina
         #cicloEspera de la maquina anterior. si no se entiende escribir al guasap.
         productoActualRequerido = @porcentajePA * @cantidadMax
         
-        if @productoActual.cantidad == productoActualRequerido
+        if @productoActual.cantidad >= productoActualRequerido
             @estado = "Llena"
+        else
+            cantidadNecesaria = (@cantidadMax*@porcentajePA) - @productoActual.cantidad
+            if (@PA_Restante > 0)
+                if (@PA_Restante >= cantidadNecesaria)
+                    @productoActual.cantidad += cantidadNecesaria
+                    @PA_Restante -= cantidadNecesaria
+                else
+                    @productoActual.cantidad += @PA_Restante
+                    @PA_Restante = 0
+                end
+                #AQUI FALTA QUE CUANDO SE LLENE LA MAQUINA SE CAMBIE DE ESTADO O ALGO
+            end 
         end
             
     end
@@ -177,8 +202,33 @@ class Maquina
 #--Fin de la clase Maquina
 end
 
+
+
+
+
 ins = Insumo.new
 maquina = Maquina.new("M1",1,1,1,1,1)
 maquina.imprimir
 maquina.cicloLlena
 maquina.imprimir
+
+numCiclos = ARGV[0]
+cebada    = ARGV[1]
+arrozMaiz = ARGV[2]
+levadura  = ARGV[3]
+lupulo    = ARGV[4]
+
+
+#FALTA PONER LAS MAQUINAS SIGUIENTES
+
+#silosCebada    = MaquinaCompleja.new
+molino         = Maquina.new("Molino", 0.02, 0, 100, 100, 1, nil, nil)
+#pailaMezcla    = MaquinaCompleja.new
+cubaFiltracion = Maquina.new("Cuba de Filtracion", 0.35, 0, 135, 100, 2, nil, nil)
+#pailaCoccion   = MaquinaCompleja.new
+tanque         = Maquina.new("Tanque Pre-Clarificador", 0.01, 0, 35, 100, 1, nil, nil)
+enfriador      = Maquina.new("Enfriador", 0.0, 0, 60, 100, 2, nil, nil)
+#tcc            = MaquinaCompleja.new
+filtroCerveza  = Maquina.new("Filtro de Cerveza", 0.0, 0, 100, 100, 1, nil, nil)
+tanqueFiltrada = Maquina.new("Tanque para Cerveza Filtrada", 0.0, 0, 100, 100, 0, nil, nil)
+llenaTapa      = Maquina.new("Llenadora y Tapadora", 0.0, 0, 50, 100, 2, nil, nil)
