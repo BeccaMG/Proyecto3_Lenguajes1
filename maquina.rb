@@ -115,10 +115,7 @@ class Maquina
     
     #------ Metodo que procesa un ciclo en estado "espera". -----
     def cicloEspera
-        puts "Entro en espera"
         if @productoProcesado.cantidad == 0
-            puts "lo que me queda en el tanque"
-            puts @productoProcesado.cantidad
             # Solamente debe transferir si la maquina siguiente esta lista para
             # recibir, esto es, si la maquina siguiente esta inactiva y yo
             # tengo producto para transferir.
@@ -136,7 +133,6 @@ class Maquina
        #Es un ciclo de transicion, si la maquina estaba en estado "llena" debe
        #comenzar a procesar en el siguiente ciclo.
        @estado = "Procesando"
-       cicloProcesamiento
     end    
     
        
@@ -151,7 +147,7 @@ class Maquina
         case @estado
             when "Llena","Inactiva"
                 unless @productoAnterior.nil?
-                    puts "Insumos:\n"
+                    puts "Insumos:"
                     @productoAnterior.imprimir
                 end
         end

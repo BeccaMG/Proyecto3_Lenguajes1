@@ -36,8 +36,6 @@ module MaquinaCompleja
                     #-- es suficiente para comenzar el procesamiento de 
                     #-- la maquina
                     if @productoAnterior.cantidad >= cantidadAObtener
-                        
-                         puts "if vdd soy el mapa : #{@nombre}"
                     
                         #-- Se resta la cantidad necesaria para comenzar a 
                         #-- procesar de la cantidad encontrada en el contenedor
@@ -55,14 +53,10 @@ module MaquinaCompleja
                     #-- no es el suficiente para comenzar el procesamiento de
                     #-- de la maquina
                     else
-                        puts "#{@nombre}: tengo esto:  #{@productoAnteriorRestante}"
                         #-- Se recolecta en su totalidad la fraccion restante 
                         #-- de producto anterior del contenedor
                         @productoAnteriorRestante += @productoAnterior.cantidad
                         @productoAnterior.cantidad = 0
-                        
-                        
-                        puts "#{@nombre}: chupe y tengo:  #{@productoAnteriorRestante}"
                         
                     end
                     
