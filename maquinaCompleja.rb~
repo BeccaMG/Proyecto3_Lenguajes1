@@ -57,7 +57,6 @@ module MaquinaCompleja
             #-- del proceso de produccion. Unicamente se verifica el insumo
             #-- basico, pues no se depende de ningun producto anterior.
             else
-            
                 insumoBasico.cantidad      -= insumoRequerido
                 
                 #-- La maquina pasa al estado LLena
