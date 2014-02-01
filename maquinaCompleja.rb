@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require_relative 'insumoBasico'
 
 #*******************************************************************************
 #-------------- IMPLEMENTACION DEL MIX-IN MAQUINA COMPLEJA ---------------------
@@ -16,7 +17,7 @@ module MaquinaCompleja
         
         #-- Unicamente si se tiene la cantidad requerida de insumo basico
         #-- en el contenedor, se procede a analizar el resto de la mezcla
-        if @insumoRequerido >= insumoBasico.cantidad     
+        if insumoRequerido >= @insumoBasico.cantidad     
         
             #-- Caso en el que la maquina posee un contenedor de enlace
             #-- con una maquina anterior.

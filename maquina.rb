@@ -146,8 +146,10 @@ class Maquina
         #-- que esta se encuentre en estado inactiva o llena
         case @estado
             when "Llena","Inactiva"
-                puts "Insumos:\n"
-                @productoAnterior.imprimir
+                unless @productoAnterior.nil?
+                    puts "Insumos:\n"
+                    @productoAnterior.imprimir
+                end
         end
     end
 #--Fin de la clase Maquina

@@ -11,7 +11,6 @@ module MaquinaFinal
         @productoProcesado.cantidad += cervezas
         @productoHecho = 0
         puts "Cervezas salientes: #{cervezas}"
-        @estado = "Inactiva"
     end   
     
 end

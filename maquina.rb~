@@ -1,44 +1,6 @@
 #!/usr/bin/env ruby
-
-#*****************************************************************************
-#--------------------- IMPLEMENTACION DE LA CLASE INSUMO ---------------------
-#*****************************************************************************
-class Insumo
-    
-    # ---------- Variables de Instancia de la Clase Insumo ---------------- #
-    attr_accessor :nombre, :cantidad
-    
-    # ---------- Constructor de la Clase Insumo ------------- #
-    #   El constructor estara implementado en las subclases   #
-    def initialize
-    end
-
-    # ---------- Funcion para imprimir un Insumo ------------ #
-    def imprimir
-        puts "#{@nombre}: #{@cantidad}"
-    end
-end
-
-# ---------------- SUBCLASE INSUMOBASICO (PADRE INSUMO) ------------------ #
-class InsumoBasico < Insumo
-    
-    # ---- Constructor para la Subclase InsumoBasico ---- #
-    def initialize(nombre,cantidad)
-        @nombre = nombre
-        @cantidad = cantidad
-    end 
-end
-
-# ------------------- SUBCLASE PRODUCTO (PADRE INSUMO) ------------------- #
-class Producto < Insumo
-
-    # ---- Constructor para la Subclase Producto ---- #
-    def initialize(cantidad)
-        @nombre = 'Producto Anterior'
-        @cantidad = cantidad
-    end
-end
-
+require_relative 'producto'
+require_relative 'maquinaFinal'
 
 #*******************************************************************************
 #----------------- IMPLEMENTACION DE LA CLASE MAQUINA --------------------------
@@ -46,8 +8,8 @@ end
 class Maquina
 
     #---------- Variables de instancia de la clase Maquina ------------
-    attr_accessor :nombre, :desecho, :productoAnterior, :cantidadMax, :porcentajePA,
-                  :ciclosProcesamiento,:estado, :maquinaAnterior
+    attr_accessor :nombre, :desecho, :productoAnterior, :cantidadMax, 
+                  :porcentajePA, :ciclosProcesamiento,:estado, :maquinaAnterior
     
     #----------- Constructor de la clase Maquina ------------
     #-- @param nombre  {string correspondiente al nombre de la maquina}
@@ -190,42 +152,3 @@ class Maquina
     end
 #--Fin de la clase Maquina
 end
-
-
-
-
-
-
-numCiclos = ARGV[0]
-cebada    = ARGV[1]
-arrozMaiz = ARGV[2]
-levadura  = ARGV[3]
-lupulo    = ARGV[4]
-
-
-#FALTA PONER LAS MAQUINAS SIGUIENTES
-
-#silosCebada    = MaquinaCompleja.new
-tanque1 = Producto.new(0)
-#pailaMezcla    = MaquinaCompleja.new
-tanque2 = Producto.new(0)
-#pailaCoccion   = MaquinaCompleja.new
-tanque3 = Producto.new(0)
-tanque4 = Producto.new(0)
-#tcc            = MaquinaCompleja.new
-tanque5 = Producto.new(0)
-tanque6 = Producto.new(0)
-productoFinal = Producto.new(0)
-
-
-llenaTapa      = Maquina.new("Llenadora y Tapadora", 0.0, 50, 100, 2, nil, tanque6, productoFinal)
-tanqueFiltrada = Maquina.new("Tanque para Cerveza Filtrada", 0.0, 100, 100, 0, llenaTapa, tanque5, tanque6)
-filtroCerveza  = Maquina.new("Filtro de Cerveza", 0.0, 100, 100, 1, tanqueFiltrada, tanque4, tanque5)
-enfriador      = Maquina.new("Enfriador", 0.0, 60, 100, 2, filtroCerveza, tanque3, tanque4)
-tanque         = Maquina.new("Tanque Pre-Clarificador", 0.01, 35, 100, 1, enfriador, tanque2, tanque3)
-cubaFiltracion = Maquina.new("Cuba de Filtracion", 0.35, 135, 100, 2, tanque, tanque1, tanque2)
-molino         = Maquina.new("Molino", 0.02, 100, 100, 1, cubaFiltracion, nil, tanque1)
-
-cubaFiltracion.procesamiento
-
-
