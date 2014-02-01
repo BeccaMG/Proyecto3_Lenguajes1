@@ -89,7 +89,7 @@ class Maquina
             @productoAnteriorRestante = 0.0
             @estado = "Llena"
         else
-            @productoAnteriorRestante = @productoAnterior.cantidad
+            @productoAnteriorRestante += @productoAnterior.cantidad
             @productoAnterior.cantidad = 0
         end
         

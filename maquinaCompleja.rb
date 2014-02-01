@@ -18,7 +18,6 @@ module MaquinaCompleja
         #-- Unicamente si se tiene la cantidad requerida de insumo basico
         #-- en el contenedor, se procede a analizar el resto de la mezcla
         if @insumoBasico.cantidad >= insumoRequerido  
-            
         
             #-- Caso en el que la maquina posee un contenedor de enlace
             #-- con una maquina anterior.
@@ -32,11 +31,13 @@ module MaquinaCompleja
                 cantidadAObtener = productoAnteriorRequerido -
                                     @productoAnteriorRestante 
                
+                    
                     #-- Caso en el que el producto encontrado en el contenedor
                     #-- es suficiente para comenzar el procesamiento de 
                     #-- la maquina
                     if @productoAnterior.cantidad >= cantidadAObtener
                         
+                         puts "if vdd soy el mapa : #{@nombre}"
                     
                         #-- Se resta la cantidad necesaria para comenzar a 
                         #-- procesar de la cantidad encontrada en el contenedor
@@ -54,10 +55,15 @@ module MaquinaCompleja
                     #-- no es el suficiente para comenzar el procesamiento de
                     #-- de la maquina
                     else
+                        puts "#{@nombre}: tengo esto:  #{@productoAnteriorRestante}"
                         #-- Se recolecta en su totalidad la fraccion restante 
                         #-- de producto anterior del contenedor
-                        @productoAnteriorRestante = @productoAnterior.cantidad
+                        @productoAnteriorRestante += @productoAnterior.cantidad
                         @productoAnterior.cantidad = 0
+                        
+                        
+                        puts "#{@nombre}: chupe y tengo:  #{@productoAnteriorRestante}"
+                        
                     end
                     
             #-- Caso en el que la maquina corresponde a la primera dentro
@@ -75,7 +81,7 @@ module MaquinaCompleja
     #------ Representacion en String de la clase Maquina Compleja. -----
     #-- Imprime en pantalla dicha representacion
     def imprimir
-        maquina = "\nMaquina " + @nombre + "\n" + "Estado: " + @estado +"\n"
+        maquina = "\nMaquina Compleja" + @nombre + "\n" + "Estado: " + @estado +"\n"
         
         puts maquina
         #-- Solo se imprimen los insumos asociados a la maquina en caso de 

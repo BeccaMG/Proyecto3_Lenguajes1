@@ -116,10 +116,10 @@ class Fabrica
 
         # ---- Se imprimen los resultados ---- #
         puts "Cerveza Total: #{cervezas.cantidad}"
-        puts "Cebada Sobrante: "
-        puts "Lupulo Sobrante: "
-        puts "Levadura Sobrante: "
-        puts "Mezcla Arroz Maiz Sobrante: "
+        puts "Cebada Sobrante: #{contenedorCebada.cantidad}"
+        puts "Lupulo Sobrante: #{contenedorLupulo.cantidad}"
+        puts "Levadura Sobrante: #{contenedorLevadura.cantidad}"
+        puts "Mezcla Arroz Maiz Sobrante: #{contenedorMezclaArrozMaiz.cantidad}"
 
     end
 
