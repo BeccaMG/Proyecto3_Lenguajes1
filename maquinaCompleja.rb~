@@ -32,6 +32,9 @@ module MaquinaCompleja
                 cantidadAObtener = productoAnteriorRequerido -
                                     @productoAnteriorRestante 
                
+                        puts "Tengo suficiente producto anterior porque tengo"
+                        puts @productoAnterior.cantidad
+                       
                     #-- Caso en el que el producto encontrado en el contenedor
                     #-- es suficiente para comenzar el procesamiento de 
                     #-- la maquina

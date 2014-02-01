@@ -75,6 +75,9 @@ class Fabrica
         pailaCoccion.extend MaquinaCompleja
         pailaCoccion.insumoBasico = contenedorLupulo
         pailaCoccion.porcentajeIB = 0.025
+
+        
+        contenedorInsumoBasico1 = Insumo.new()
         
         cubaFiltracion = Maquina.new("Cuba de Filtracion", 0.35, 135, 1, 2,
                                     pailaCoccion, contenedor8, contenedor7)
