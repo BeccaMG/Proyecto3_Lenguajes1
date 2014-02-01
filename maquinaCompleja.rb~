@@ -10,28 +10,57 @@ module MaquinaCompleja
      
     #------ Metodo que procesa un ciclo en estado "inactiva". -----
     def cicloInactiva
-        #Lo que hay que hacer es chupar del tanque compartido, y si no alcanza
-        #guardarlo en la variable de productoAnteriorRestante, la funcion 
-        #cicloEspera debe chequear que el tanque sea 0 para pasar a inactiva,
-        # me refiero al cicloEspera de la maquina anterior. 
+        
+        #-- Se calcula la cantidad de insumo basico requerido por la maquina C 
         insumoRequerido = @porcentajeIB * @cantidadMax
         
+        #-- Unicamente si se tiene la cantidad requerida de insumo basico
+        #-- en el contenedor, se procede a analizar el resto de la mezcla
         if @insumoRequerido >= insumoBasico.cantidad     
         
+            #-- Caso en el que la maquina posee un contenedor de enlace
+            #-- con una maquina anterior.
             if @productoAnterior != nil
+            
+                #-- Se calcula la cantidad de producto anterior requerido
+                #-- por la maquina Compleja
                 productoAnteriorRequerido = @porcentajePA * @cantidadMax
                        
+                    #-- Caso en el que el producto encontrado en el contenedor
+                    #-- es suficiente para comenzar el procesamiento de 
+                    #-- la maquina
                     if @productoAnterior.cantidad >= cantidadAObtener
+                    
+                        #-- Se resta la cantidad necesaria para comenzar a 
+                        #-- procesar de la cantidad encontrada en el contenedor
                         @productoAnterior.cantidad -= cantidadAObtener
+                        
+                        #-- Se disminuye la cantidad de insumo basico del 
+                        #-- contenedor
                         insumoBasico.cantidad      -= insumoRequerido
                         @productoAnteriorRestante = 0.0
+                        
+                        #-- La maquina pasa al estado LLena
                         @estado = "Llena"
+                        
+                    #-- Caso en el que el producto encontrado en el contenedor
+                    #-- no es el suficiente para comenzar el procesamiento de
+                    #-- de la maquina
                     else
+                        #-- Se recolecta en su totalidad la fraccion restante 
+                        #-- de producto anterior del contenedor
                         @productoAnteriorRestante = @productoAnterior.cantidad
                         @productoAnterior.cantidad = 0
                     end
+                    
+            #-- Caso en el que la maquina corresponde a la primera dentro
+            #-- del proceso de produccion. Unicamente se verifica el insumo
+            #-- basico, pues no se depende de ningun producto anterior.
             else
+            
                 insumoBasico.cantidad      -= insumoRequerido
+                
+                #-- La maquina pasa al estado LLena
                 @estado = "Llena"
             end
         end
