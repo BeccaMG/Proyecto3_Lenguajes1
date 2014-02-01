@@ -75,7 +75,7 @@ module MaquinaCompleja
     #------ Representacion en String de la clase Maquina Compleja. -----
     #-- Imprime en pantalla dicha representacion
     def imprimir
-        maquina = "\nMaquina Compleja" + @nombre + "\n" + "Estado: " + @estado +"\n"
+        maquina = "\nMaquina " + @nombre + "\n" + "Estado: " + @estado +"\n"
         
         puts maquina
         #-- Solo se imprimen los insumos asociados a la maquina en caso de 
