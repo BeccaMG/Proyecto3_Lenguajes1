@@ -25,11 +25,10 @@ module MaquinaFinal
                     @productoAnterior.imprimir
                 end
         end
-        unless @cervezas==0
+        unless @cervezas==0 || @cervezas.nil?
             puts "Cervezas salientes: #{@cervezas}"
+            @cervezas = 0
         end
     end
         
 end
-
-

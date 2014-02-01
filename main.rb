@@ -3,7 +3,6 @@ require_relative 'maquina'
 require_relative 'maquinaFinal'
 require_relative 'maquinaCompleja'
 
-
 #*****************************************************************************
 #-------------------- IMPLEMENTACION DE LA CLASE FABRICA ---------------------
 #*****************************************************************************
@@ -27,11 +26,11 @@ class Fabrica
     def activar
         
         puts "Inicio Planta"
-        puts "#{@numCiclos}"
 
         cervezas = Producto.new(0)
         
-        # ---- Se crea cada una de las maquinas ---- #
+        # ---- Se crean los contenedores que comparten las máquinas para poder
+        # ---- pasarse el producto que hacen como "productoAnterior"
         contenedor1 = Producto.new(0)
         contenedor2 = Producto.new(0)
         contenedor3 = Producto.new(0)
@@ -43,63 +42,65 @@ class Fabrica
         contenedor9 = Producto.new(0)
         contenedor10 = Producto.new(0)
         
+        # ---- Se crean los contenedores de insumos básicos de la fábrica
         contenedorCebada   = InsumoBasico.new("Cebada",@cebada)
-        contenedorMezclaArrozMaiz = InsumoBasico.new("Mezcla de Arroz/Maiz",@arrozMaiz)
+        contenedorMezclaArrozMaiz = InsumoBasico.new("Mezcla de Arroz/Maiz",
+                                                    @arrozMaiz)
         contenedorLupulo   = InsumoBasico.new("Lupulo",@lupulo)        
         contenedorLevadura = InsumoBasico.new("Levadura",@levadura)
 
-        llenaTapa = Maquina.new("Llenadora y Tapadora", 0.0, 50, 1, 2, nil,
+        
+        # ---- Se crean todas las máquinas compartiendo contenedores
+        llenaTapa = Maquina.new("Llenadora y Tapadora", 0.0, 50, 1, 2,
                                 contenedor1, cervezas)
         llenaTapa.extend MaquinaFinal
         
         tanqueFiltrada = Maquina.new("Tanque para Cerveza Filtrada", 0.0, 100,
-                                    1, 0, llenaTapa, contenedor2, contenedor1)
+                                    1, 0, contenedor2, contenedor1)
         
         filtroCerveza = Maquina.new("Filtro de Cerveza", 0.0, 100, 1, 1,
-                                    tanqueFiltrada, contenedor3, contenedor2)
+                                    contenedor3, contenedor2)
 
-        tcc = Maquina.new("TCC", 0.1, 200, 0.99, 10, filtroCerveza, contenedor4,
-                           contenedor3)
+        tcc = Maquina.new("TCC", 0.1, 200, 0.99, 10, contenedor4, contenedor3)
         tcc.extend MaquinaCompleja
         tcc.insumoBasico = contenedorLevadura
         tcc.porcentajeIB = 0.01
 
-        enfriador = Maquina.new("Enfriador", 0.0, 60, 1, 2, tcc, contenedor5,
+        enfriador = Maquina.new("Enfriador", 0.0, 60, 1, 2, contenedor5,
                                 contenedor4)
         
         tanque = Maquina.new("Tanque Pre-Clarificador", 0.01, 35, 1, 1,
-                            enfriador, contenedor6, contenedor5)
+                             contenedor6, contenedor5)
 
         pailaCoccion = Maquina.new("Paila de Coccion", 0.1, 70, 0.975, 3,
-                                    tanque, contenedor7, contenedor6)
+                                   contenedor7, contenedor6)
         pailaCoccion.extend MaquinaCompleja
         pailaCoccion.insumoBasico = contenedorLupulo
         pailaCoccion.porcentajeIB = 0.025
         
         cubaFiltracion = Maquina.new("Cuba de Filtracion", 0.35, 135, 1, 2,
-                                    pailaCoccion, contenedor8, contenedor7)
+                                     contenedor8, contenedor7)
         
         pailaMezcla = Maquina.new("Paila de Mezcla", 0, 150, 0.6, 2,
-                                  cubaFiltracion, contenedor9, contenedor8)
+                                  contenedor9, contenedor8)
         pailaMezcla.extend MaquinaCompleja
         pailaMezcla.insumoBasico = contenedorMezclaArrozMaiz
         pailaMezcla.porcentajeIB = 0.4
-        
-        
-        molino = Maquina.new("Molino", 0.02, 100, 1, 1, pailaMezcla,
-                            contenedor10, contenedor9)
+       
+        molino = Maquina.new("Molino", 0.02, 100, 1, 1, contenedor10,
+                             contenedor9)
 
-        silosCebada = Maquina.new("Silos de Cebada", 0, 400, 0, 0,
-                                  molino, nil, contenedor10)
-        
+        silosCebada = Maquina.new("Silos de Cebada", 0, 400, 0, 0, nil,
+                                  contenedor10)
         silosCebada.extend MaquinaCompleja
         silosCebada.insumoBasico = contenedorCebada
         silosCebada.porcentajeIB = 1
         
 
-        # ---- Se ejecutan los ciclos especificados ---- #
+        # ---- Se ejecutan los ciclos especificados. Cada ciclo llama al
+        # ---- procesamiento de cada máquina que se procesa según su estado
         for i in 1..@numCiclos
-            puts "Inicio Ciclo #{i}\n"
+            puts "Inicio Ciclo #{i}"
             silosCebada.procesamiento
             molino.procesamiento
             pailaMezcla.procesamiento
@@ -111,7 +112,7 @@ class Fabrica
             filtroCerveza.procesamiento
             tanqueFiltrada.procesamiento
             llenaTapa.procesamiento   
-            puts "Fin Ciclo #{i}\n\n"
+            puts "Fin Ciclo #{i}"
         end
 
         # ---- Se imprimen los resultados ---- #
@@ -125,17 +126,21 @@ class Fabrica
 
 end
 
+#----------------------------- PROGRAMA PRINCIPAL -----------------------------#
+
 def parametrosValidos(numCiclos,cebada,arrozMaiz,levadura,lupulo)
     if (numCiclos<0 || cebada<0 || arrozMaiz<0 || levadura<0|| lupulo<0)
         puts "Todos los parametros de entrada deben corresponder a enteros positivos"
         abort
     end
-end    
+end
+    
 # ---- Se obtienen los argumentos de la linea de comandos ---- #
 if ARGV.length != 5
     puts "Argumentos Invalidos.\nModo de uso <NumeroCiclos> <Cebada> <arrozMaiz> <levadura> <lupulo> "
     abort
 end
+
 numCiclos = ARGV[0].to_i
 cebada    = ARGV[1].to_i
 arrozMaiz = ARGV[2].to_i
@@ -143,6 +148,7 @@ levadura  = ARGV[3].to_i
 lupulo    = ARGV[4].to_i
 
 parametrosValidos(numCiclos,cebada,arrozMaiz,levadura,lupulo)
+
 # ---- Se crea la Fabrica y se pone en marcha ---- #
 glaciar = Fabrica.new(numCiclos, cebada, arrozMaiz, levadura, lupulo)
 glaciar.activar

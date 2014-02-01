@@ -82,6 +82,7 @@ module MaquinaCompleja
         #-- que esta se encuentre en estado inactiva o llena
         case @estado
             when "Llena","Inactiva"
+                puts "Insumos:"
                 unless @productoAnterior.nil?
                     @productoAnterior.imprimir
                 end

@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require_relative 'producto'
-require_relative 'maquinaFinal'
 
 #*******************************************************************************
 #----------------- IMPLEMENTACION DE LA CLASE MAQUINA --------------------------
@@ -12,26 +11,8 @@ class Maquina
                   :porcentajePA, :ciclosProcesamiento,:estado, :maquinaAnterior
     
     #----------- Constructor de la clase Maquina ------------
-    #-- @param nombre  {string correspondiente al nombre de la maquina}
-    #-- @param desecho {numero correspondiente al desecho que produce la maquina}
-    #-- @param productoAnterior {instancia de Insumo correspondiente al contenedor
-    #-- del Insumo PA de la maquina. A su vez, indica el contenedor en el que
-    #-- la maquina anterior deposita el producto manufacturado
-    #--
-    #-- estado de la maquina, una
-    #--        maquina recien cerada es inactiva por defecto}
-    #-- @param cantidadMax {numero correspondiente a la cantidad maxima de 
-    #--        insumos soportado por la maquina}
-    #-- @param porcentajePA {numero correspondiente al porcentaje
-    #--        de insumo soportado por de la maquina}
-    #-- @param ciclosProcesamiento {numero correspondiente a los ciclos de
-    #--        procesamiento requeridos por la maquina}
-    #-- @param maquinaAnterior {Maquina.class un apuntador a la maquina previa}
-    #-- @param productoProcesado {Instancia de Producto PA correspondiente al
-    #--        contenedor de insumos de la siguiente maquina del proceso. Si es
-    #--        nil se trata de la ultima maquina}
     def initialize(nombre,desecho,cantidadMax,porcentajePA,ciclosProcesamiento,
-                    maquinaSiguiente,productoAnterior,productoProcesado)
+                   productoAnterior,productoProcesado)
                    
         #--- Variables de instancia obligatorias al invocar el constructor
         @nombre   = nombre
@@ -41,7 +22,6 @@ class Maquina
         @porcentajePA        =  porcentajePA
         @ciclosProcesamiento =  ciclosProcesamiento
         
-        @maquinaSiguiente    =  maquinaSiguiente
         @productoAnterior    =  productoAnterior
         @productoProcesado   =  productoProcesado
         
@@ -64,23 +44,13 @@ class Maquina
                 cicloEspera
             when "Llena"
                 cicloLlena
-            when "Llenando"
-                cicloLlenando
         end
         imprimir
     end  
- 
-    #------ Metodo que procesa un ciclo en estado "llenando". -----
-    def cicloLlenando
-        
-    end
+
      
     #------ Metodo que procesa un ciclo en estado "inactiva". -----
     def cicloInactiva
-        #Lo que hay que hacer es chupar del tanque compartido, y si no alcanza
-        #guardarlo en la variable de productoAnteriorRestante, la funcion cicloEspera debe
-        #chequear que el tanque sea 0 para pasar a inactiva, me refiero al
-        #cicloEspera de la maquina anterior. si no se entiende escribir al guasap.
         productoAnteriorRequerido = @porcentajePA * @cantidadMax
         cantidadAObtener = productoAnteriorRequerido - @productoAnteriorRestante 
 
